@@ -1,7 +1,5 @@
 import React from 'react';
-import axios from 'axios';
 import {Button, View, Text, TextInput, StyleSheet} from 'react-native';
-import BaseUrl from '../utils/http';
 import Toast from '../utils/Toast';
 import {setItem} from '../utils/storage';
 import {postRequest} from '../utils/http';

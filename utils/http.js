@@ -12,10 +12,6 @@ axios.interceptors.request.use(
 );
 axios.interceptors.response.use(
   data => {
-    if (data.status && data.status == 200 && data.data.status == 'error') {
-      Toast('请求超时!');
-      return;
-    }
     return data;
   },
   err => {

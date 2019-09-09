@@ -1,8 +1,7 @@
 import React from 'react';
-import axios from 'axios';
-import BaseUrl from '../utils/http';
-import AsyncStorage from '@react-native-community/async-storage';
 import {Button, View, Text, FlatList, ScrollView} from 'react-native';
+import {postRequest} from '../utils/http';
+import {getItem} from '../utils/storage';
 class HomePage extends React.Component {
   constructor(props) {
     super(props);
@@ -13,43 +12,12 @@ class HomePage extends React.Component {
   static navigationOptions = {
     title: '主页',
   };
-  async componentDidMount() {
-    await this.setUser();
-    axios
-      .post(`${BaseUrl}/pjsys/queryFirstThreeByImessage`, {
-        params: {
-          user_id: this.state.store,
-        },
-      })
-      .then(res => console.log('susse' + res, this.state.store))
-      .catch(err => console.log('err' + err));
-  }
-  setUser = async () => {
-    try {
-      let store = await AsyncStorage.getItem('userId');
-      this.setState({store: Number(store)});
-    } catch (e) {
-      this.props.navigation.navigate('HomePage');
-    }
-  };
-  _renderItem(item) {
-    return (
-      <View>
-        <Text>{item.data}</Text>
-      </View>
-    );
-  }
   render() {
     const {navigation} = this.props;
     return (
       <ScrollView>
         <Text>HomePage Screen</Text>
-        <View>
-          <FlatList
-            data={this.state.data}
-            renderItem={({item}) => this._renderItem(item)}
-          />
-        </View>
+        <View />
         <Button
           title="go Page1"
           onPress={() => {
@@ -57,9 +25,15 @@ class HomePage extends React.Component {
           }}
         />
         <Button
-          title="go Login"
+          title="登录"
           onPress={() => {
             navigation.navigate('Login');
+          }}
+        />
+        <Button
+          title="消息界面"
+          onPress={() => {
+            navigation.navigate('info');
           }}
         />
       </ScrollView>
